@@ -1,0 +1,31 @@
+{
+  "name": "open-compute-db",
+  "version": "1.0.0",
+  "description": "A self-hosted database, available for public key-value storage. Might get wiped once in a while. No consistency guarantees, but it's a free API for your prototypes (and mine).",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikhael28/open-compute-db.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikhael28/open-compute-db/issues"
+  },
+  "homepage": "https://github.com/mikhael28/open-compute-db#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.6.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

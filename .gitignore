@@ -1,0 +1,6 @@
+*.sqlite
+*.sqlite-journal
+*.db
+node_modules
+data/
+logs/

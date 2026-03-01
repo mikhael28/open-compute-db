@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>open-compute-db</title>
+    <style>
+      :root {
+        color-scheme: dark light;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        margin: 0 auto;
+        padding: 2rem;
+        max-width: 800px;
+        line-height: 1.6;
+      }
+      code {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.1rem 0.3rem;
+        border-radius: 4px;
+        font-size: 0.95rem;
+      }
+      pre {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      ul {
+        padding-left: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>open-compute-db</h1>
+    <p>
+      A tiny HTTP key&ndash;value store for quick prototypes. No auth, just pick a
+      key and push JSON. Keys are limited to <code>A-Za-z0-9._:-</code> (max 128 characters)
+      so they can safely double as filenames or environment variable names.
+    </p>
+
+    <h2>Endpoints</h2>
+    <ul>
+      <li>
+        <strong>PUT /kv/:key</strong> &mdash; Upsert a value. Body must include
+        <code>{ "value": &lt;your value&gt; }</code>
+      </li>
+      <li><strong>GET /kv/:key</strong> &mdash; Retrieve the stored value.</li>
+      <li><strong>DELETE /kv/:key</strong> &mdash; Remove the key.</li>
+      <li>
+        <strong>GET /kv?prefix=&amp;limit=</strong> &mdash; List up to 500 keys (newest first)
+        filtered by an optional prefix.
+      </li>
+      <li><strong>GET /health</strong> &mdash; Basic status + key count.</li>
+    </ul>
+
+    <h2>Examples</h2>
+    <pre><code>curl -X PUT https://&lt;host&gt;/kv/demo-user \
+  -H "Content-Type: application/json" \
+  -d '{"value": {"profile": "alpha", "active": true}}'
+
+curl https://&lt;host&gt;/kv/demo-user
+curl https://&lt;host&gt;/kv?prefix=demo&amp;limit=20
+curl -X DELETE https://&lt;host&gt;/kv/demo-user</code></pre>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>Values are stored as JSON text. Boolean/number/string types round-trip as&ndash;is.</li>
+      <li>Each write updates <code>updatedAt</code>; listing sorts by this timestamp.</li>
+      <li>
+        The service is unauthenticated by design. Expect periodic cleanups&mdash;do not
+        treat it as a production database.
+      </li>
+    </ul>
+
+    <p>
+      Source + self-host instructions live in
+      <a href="https://github.com/mikhael28/open-compute-db">the repository</a>.
+    </p>
+  </body>
+</html>
