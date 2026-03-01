@@ -3,6 +3,8 @@
 A self-hosted, public key-value store for quick LLM or prototype experiments. You can
 persist arbitrary JSON-ish payloads without spinning up a full database.
 
+Deployed URL Here: https://nightingale-ssd.tail8c7d58.ts.net/compute/kv/my-key
+
 ```
 PUT https://<host>/kv/my-key     { "value": "hello" }
 GET https://<host>/kv/my-key
